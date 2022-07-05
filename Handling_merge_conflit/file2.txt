@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:flutter_structure_app/main.dart' as app;
+
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('user api', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const app.MyApp());
+    await tester.pumpAndSettle();
+    ElevatedButton button = find
+        .widgetWithText(ElevatedButton, 'User Api Calling')
+        .evaluate()
+        .first
+        .widget as ElevatedButton;
+
+    // // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byWidget(button));
+    await tester.pump();
+
+    await tester.pumpAndSettle();
+    expect(find.text('User'), findsOneWidget);
+    expect(find.text('No users'), findsOneWidget);
+
+    // // Verify that our counter has incremented.
+    // expect(find.text('0'), findsNothing);
+    // expect(find.text('1'), findsOneWidget);
+  });
+}
