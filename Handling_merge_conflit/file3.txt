@@ -53,7 +53,7 @@ class DeployScreen extends GetView<DeployScreenController> {
 
   Widget _selectDeplyType() => Obx(
         () => DropdownButtonFormField<String>(
-          key: const Key("selectDeplyTypeKey"),
+          key: const ValueKey("selectDeplyTypeKey"),
           isExpanded: true,
           isDense: true,
           icon: const Icon(Icons.keyboard_arrow_down),
@@ -94,7 +94,6 @@ class DeployScreen extends GetView<DeployScreenController> {
             children: [
               const SizedBox(height: 10),
               DropdownButtonFormField<GetStoreTypeDeploys>(
-                key: const Key('SelectWorkSpaceTypeKey'),
                 isExpanded: true,
                 isDense: true,
                 icon: const Icon(Icons.keyboard_arrow_down),
@@ -139,7 +138,6 @@ class DeployScreen extends GetView<DeployScreenController> {
           children: [
             const SizedBox(height: 10),
             TextFormField(
-              key: const Key('WorkSpaceTypeIdKey'),
               onTap: controller.onTapWorkSpaceId,
               controller: controller.workspaceIdController,
               readOnly: true,
@@ -196,7 +194,6 @@ class DeployScreen extends GetView<DeployScreenController> {
             children: [
               const SizedBox(height: 4),
               TextFormField(
-                key: const Key('selectUserKey'),
                 onTap: controller.onTapSelectUser,
                 controller: controller.selectUserController,
                 readOnly: true,
@@ -274,7 +271,6 @@ class DeployScreen extends GetView<DeployScreenController> {
           borderSide: const BorderSide(),
         ),
         suffixIcon: IconButton(
-          key: const Key('EyeButtonKey'),
           icon: const Icon(Icons.remove_red_eye),
           onPressed: controller.onTapShowSerialNumDesc,
         ),
@@ -445,7 +441,6 @@ class DeployScreen extends GetView<DeployScreenController> {
                 ),
                 child: controller.qrLocationImageFile.value == null
                     ? InkWell(
-                        key: const Key('qrLocationCodeImageKey'),
                         onTap: () async {
                           await controller.getFile('qrLocationCode');
                         },
@@ -527,7 +522,6 @@ class DeployScreen extends GetView<DeployScreenController> {
                 width: Get.context!.width * 0.8,
                 height: Get.context!.height * 0.062,
                 child: ElevatedButton(
-                  key: const Key('deployInventoryButtonKey'),
                   onPressed: controller.onDeployInv,
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -597,7 +591,6 @@ class DeployScreen extends GetView<DeployScreenController> {
                   Row(
                     children: [
                       Radio<int>(
-                        key: const Key('radioButtonKey'),
                         toggleable: false,
                         value: element.siId!.toInt(),
                         groupValue: controller.radioValue.value,
@@ -675,7 +668,6 @@ class DeployScreen extends GetView<DeployScreenController> {
               key: controller.formKey,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: ListView(
-                key: const Key('deploylistViewKey'),
                 padding: EdgeInsets.only(
                   left: 10,
                   right: 10,
