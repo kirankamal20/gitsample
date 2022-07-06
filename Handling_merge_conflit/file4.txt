@@ -136,10 +136,12 @@ void main() {
       await tester.tap(find.byKey(const Key('btn12')));
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.text('GeofencingView'), findsOneWidget);
-  
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.enterText(find.byKey(const Key('Textfield_1')), '38.8951');
+      await tester.enterText(find.byKey(const Key('Textfield_2')), '77.0364');
       await tester.enterText(find.byKey(const Key('Textfield_3')), '9.3225');
       await tester.enterText(find.byKey(const Key('Textfield_4')), '76.9709');
-      await tester.enterText(fivnd.byKey(const Key('Textfield_5')), '1000');
+      await tester.enterText(find.byKey(const Key('Textfield_5')), '1000');
       await tester.pumpAndSettle(const Duration(seconds: 3));
       await tester.tap(find.text('Check Distance'));
       // await tester.tap(find.text('Calculate from current address'));
@@ -150,7 +152,7 @@ void main() {
     testWidgets('Geo tagged image', (WidgetTester tester) async {
       await tester.pumpWidget(const app.MyApp());
       await tester.pumpAndSettle();
-   
+      await tester.drag(find.byType(ListView), const Offset(0, -300));
       await tester.pumpAndSettle(const Duration(seconds: 2));
       await tester.tap(find.byKey(const Key('btn14')));
       await tester.pumpAndSettle(const Duration(seconds: 2));
@@ -163,9 +165,10 @@ void main() {
     testWidgets('Geo tagged image', (WidgetTester tester) async {
       await tester.pumpWidget(const app.MyApp());
       await tester.pumpAndSettle();
-      
+      await tester.drag(find.byType(ListView), const Offset(0, -300));
       await tester.pumpAndSettle(const Duration(seconds: 2));
-      
+      await tester.tap(find.byKey(const Key('btn14')));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
       // expect(find.text('imagepath'), findsOneWidget);
     });
   });
