@@ -1,0 +1,175 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:flutter_structure_app/main.dart' as app;
+
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  group('integration test', () {
+    testWidgets('user api', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      ElevatedButton button = find
+          .widgetWithText(ElevatedButton, 'User Api Calling')
+          .evaluate()
+          .first
+          .widget as ElevatedButton;
+
+      // // Tap the '+' icon and trigger a frame.
+      await tester.tap(find.byWidget(button));
+      await tester.pump();
+
+      await tester.pumpAndSettle();
+      expect(find.text('User'), findsOneWidget);
+      expect(find.text('No users'), findsOneWidget);
+    });
+    testWidgets('FingerPrint test ', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn2')));
+
+      await tester.pumpAndSettle();
+      expect(find.text('Ok'), findsOneWidget);
+    });
+    testWidgets('Image Picker test ', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn3')));
+
+      await tester.pumpAndSettle();
+      // await tester.tap(find.byKey(const Key('elv1')));
+      expect(find.text('Select Image'), findsOneWidget);
+    });
+    testWidgets('Location test ', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn4')));
+
+      await tester.pumpAndSettle();
+      // // expect(Get.isSnackbarOpen, true);
+      // expect(find.text('Location Fetched'), findsOneWidget);
+      // await tester.pumpAndSettle(const Duration(seconds: 5));
+      // expect(Get.isSnackbarOpen, false);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+      expect(find.text('Location Fetched'), findsOneWidget);
+    });
+
+    testWidgets('Date Picker test', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn5')));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.tap(find.text('15'));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+      expect(Get.isSnackbarOpen, true);
+
+      expect(find.text('Date Selected'), findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(Get.isSnackbarOpen, false);
+    });
+    testWidgets('Time Picker test', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn6')));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      // await tester.tap(find.text('3'));
+      // await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+      expect(find.text('Time Selected'), findsOneWidget);
+    });
+    testWidgets('Internet Service test ', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn7')));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      // expect(Get.isSnackbarOpen, true);
+      expect(find.text('Internet Connected'), findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      expect(Get.isSnackbarOpen, false);
+    });
+    testWidgets('Safe Device Check test ', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn8')));
+
+      await tester.pumpAndSettle(const Duration(seconds: 5));
+      expect(find.text('Rooted: true'), findsOneWidget);
+      expect(find.text('Real Device: true'), findsOneWidget);
+    });
+    testWidgets('Restart Page test ', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn9')));
+
+      await tester.pumpAndSettle();
+      // await tester.tap(find.byKey(const Key('btn')));
+      // await tester.pumpAndSettle(const Duration(seconds: 10));
+      expect(find.text('Restart App'), findsOneWidget);
+    });
+    testWidgets('Video Record Page test ', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('btn10')));
+      await tester.pumpAndSettle();
+      expect(find.text('Start Recording'), findsOneWidget);
+    });
+ 
+
+      await tester.pumpAndSettle();
+      expect(find.text('User'), findsOneWidget);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Dashboard'));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(find.text('Location'), findsOneWidget);
+    });
+    testWidgets('Geo fencing', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.drag(find.byType(ListView), const Offset(0, -300));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.tap(find.byKey(const Key('btn12')));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      expect(find.text('GeofencingView'), findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.enterText(find.byKey(const Key('Textfield_1')), '38.8951');
+      await tester.enterText(find.byKey(const Key('Textfield_2')), '77.0364');
+      await tester.enterText(find.byKey(const Key('Textfield_3')), '9.3225');
+      await tester.enterText(find.byKey(const Key('Textfield_4')), '76.9709');
+      await tester.enterText(find.byKey(const Key('Textfield_5')), '1000');
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+      await tester.tap(find.text('Check Distance'));
+      // await tester.tap(find.text('Calculate from current address'));
+      // await tester.pumpAndSettle(const Duration(seconds: 3));
+      // expect(find.text('successs'), findsOneWidget);
+    });
+ 
+    testWidgets('Geo tagged image', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.drag(find.byType(ListView), const Offset(0, -300));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.tap(find.byKey(const Key('btn14')));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      // expect(find.text('imagepath'), findsOneWidget);
+    });
+
+
+
+//cherrypick
+    testWidgets('Geo tagged image', (WidgetTester tester) async {
+      await tester.pumpWidget(const app.MyApp());
+      await tester.pumpAndSettle();
+      await tester.drag(find.byType(ListView), const Offset(0, -300));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.tap(find.byKey(const Key('btn14')));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      // expect(find.text('imagepath'), findsOneWidget);
+    });
+  });
+}
