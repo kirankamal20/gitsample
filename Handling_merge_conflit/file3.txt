@@ -58,7 +58,7 @@ class DeployScreen extends GetView<DeployScreenController> {
           isDense: true,
           icon: const Icon(Icons.keyboard_arrow_down),
           decoration: const InputDecoration(
-            label: Text('Select Deply Type'),
+            label: Text('Select Deploy Type'),
             contentPadding: EdgeInsets.symmetric(
               vertical: 16,
               horizontal: 20.0,
@@ -223,6 +223,7 @@ class DeployScreen extends GetView<DeployScreenController> {
             children: [
               const SizedBox(height: 10),
               DropdownButtonFormField<Getworkstationuserdropdown>(
+                key: const Key("selectWorkStaionDropDownKey"),
                 isExpanded: true,
                 isDense: true,
                 icon: const Icon(Icons.keyboard_arrow_down),
@@ -302,6 +303,7 @@ class DeployScreen extends GetView<DeployScreenController> {
                 ),
                 child: controller.qrCodeImageFile.value == null
                     ? InkWell(
+                        key: const Key('qrcodeImageKey'),
                         onTap: () {
                           controller.getFile('qrCode');
                         },
@@ -361,6 +363,7 @@ class DeployScreen extends GetView<DeployScreenController> {
           children: [
             Obx(
               () => Container(
+                key: const Key('qrProductCodeImageKey'),
                 height: Get.context!.width * 0.28,
                 width: Get.context!.width * 0.28,
                 decoration: BoxDecoration(
